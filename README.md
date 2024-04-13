@@ -10,3 +10,7 @@ Local Storage of Website Information: Using the browser's localStorage object, t
 Export and Import Functionality: Users can export the current saved custom website information as a JSON file. They can also import a JSON file from their local storage to restore their custom website information. This allows users to easily backup and restore their website information.
 
 Retrieve Website Icons Functionality: Website icons are retrieved from Google's favicon service. When a user adds a new website, its icon is automatically fetched and displayed on the page. The icon is also cached locally to improve loading speed.
+
+
+
+![test](https://github.com/MemeCats/home-page/assets/166717240/7e6fb54a-a1d3-4a48-91a7-c7c97336b136)
