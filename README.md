@@ -12,5 +12,4 @@ Export and Import Functionality: Users can export the current saved custom websi
 Retrieve Website Icons Functionality: Website icons are retrieved from Google's favicon service. When a user adds a new website, its icon is automatically fetched and displayed on the page. The icon is also cached locally to improve loading speed.
 
 
-
-![test](https://github.com/MemeCats/home-page/assets/166717240/7e6fb54a-a1d3-4a48-91a7-c7c97336b136)
+![test](https://github.com/MemeCats/home-page/assets/166717240/df711ba9-0da4-42fb-9f3f-01e4e2596a70)
