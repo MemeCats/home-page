@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+	  background-color: #f2f2f2;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 50px); 
+      background-color: #f2f2f2;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .site {
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      margin: 15px;
+      padding: 35px;
+      background-color: #fff;
+      border-radius: 15px;
+      width: 100px; 
+      position: relative;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .site img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+    }
+    .site h3 {
+      text-align: center;
+      margin: 0; 
+	  margin-block-start: 0.1em;
+      margin-block-end: 0.1em;
+    }
+    .site a {
+      text-decoration: none;
+      color: #333;
+    }
+    .add-site {
+      margin: 15px;
+      padding: 38px;
+      background-color: #fff;
+      border: 2px dashed #ccc;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+	  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .add-site h3 {
+      text-align: center; 
+      margin-top: 1px; 
+	  margin-block-start: 0.1em;
+      margin-block-end: 0.1em;
+	  color: #393939dd;
+    }
+    .add-site:hover {
+      border-color: #999;
+    }
+    .add-site img {
+      width: 30px;
+      height: 30px;
+      margin-bottom: 10px;
+    }
+	.remove-site {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+    }
+    .action-buttons {
+      text-align: center;
+      margin-bottom: 20px;
+      position: fixed;
+      bottom: 20px;
+      right: 0px;
+      background-color: #fff;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 25px 0 0 25px;
+    }
+    .action-buttons button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #393939dd;
+      color: #fff;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #importFile {
+      display: none; 
+    }
+    #importLabel {
+      cursor: pointer; 
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="add-site" onclick="addSite()">
+      <span style="font-size: 50px;color: #393939dd;">+</span>
+      <h3>Add a Site</h3>
+    </div>
+  </div>
+
+  
+  <div class="action-buttons">
+    <button onclick="exportCustomSites()">Export</button>
+    <input type="file" id="importFile" accept=".json" onchange="importCustomSites(this.files)">
+    <label id="importLabel" for="importFile">Import</label>
+  </div>
+
+  <script>
+    function addSite() {
+      var siteUrl = prompt("Enter site url:");
+      if (siteUrl) {
+        if (!siteUrl.startsWith("http://") && !siteUrl.startsWith("https://")) {
+          siteUrl = "http://" + siteUrl;
+        }
+        var siteName = prompt("Enter site name:");
+        if (siteName) {
+          var siteElement = document.createElement("div");
+          siteElement.classList.add("site");
+          siteElement.innerHTML = `
+            <a href="${siteUrl}">
+              <img src="${getFaviconUrl(siteUrl)}" alt="${siteName}"><br>
+              <h3>${siteName}</h3>
+              <span class="remove-site" onclick="removeSite(event, this)">x</span>
+            </a>
+          `;
+          document.querySelector(".container").insertBefore(siteElement, document.querySelector(".add-site"));
+          
+          var sites = JSON.parse(localStorage.getItem("customSites")) || [];
+          sites.push({name: siteName, url: siteUrl});
+          localStorage.setItem("customSites", JSON.stringify(sites));
+        }
+      }
+    }
+
+    function removeSite(event, span) {
+      event.preventDefault()
+      var siteElement = span.parentNode.parentNode;
+      var siteUrl = siteElement.querySelector("a").getAttribute("href");
+      var sites = JSON.parse(localStorage.getItem("customSites")) || [];
+      sites = sites.filter(function(site) {
+        return site.url !== siteUrl;
+      });
+      localStorage.setItem("customSites", JSON.stringify(sites));
+      siteElement.remove();
+    }
+
+    function getFaviconUrl(url) {
+      return "https://www.google.com/s2/favicons?sz=64&domain=" + url;
+    }
+
+    function exportCustomSites() {
+      var sites = localStorage.getItem("customSites");
+      var blob = new Blob([sites], {type: "application/json"});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "custom_sites.json";
+      a.click();
+    }
+
+    function importCustomSites(files) {
+      var file = files[0];
+      var reader = new FileReader();
+      reader.onload = function(event) {
+        var data = event.target.result;
+        localStorage.setItem("customSites", data);
+        loadCustomSites();
+      };
+      reader.readAsText(file);
+    }
+
+    function loadCustomSites() {
+      var sites = JSON.parse(localStorage.getItem("customSites")) || [];
+      sites.forEach(function(site) {
+        var siteElement = document.createElement("div");
+        siteElement.classList.add("site");
+        siteElement.innerHTML = `
+          <a href="${site.url}">
+            <img src="${getFaviconUrl(site.url)}" alt="${site.name}"><br>
+            <h3>${site.name}</h3>
+            <span class="remove-site" onclick="removeSite(event, this)">x</span>
+          </a>
+        `;
+        document.querySelector(".container").insertBefore(siteElement, document.querySelector(".add-site"));
+      });
+    }
+
+    window.onload = loadCustomSites;
+  </script>
+</body>
+</html>
