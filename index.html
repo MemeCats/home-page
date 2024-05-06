@@ -9,7 +9,7 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-	  background-color: #f2f2f2;
+      background-color: #f2f2f2;
     }
     .container {
       display: flex;
@@ -18,13 +18,6 @@
       align-items: center;
       min-height: calc(100vh - 50px); 
       background-color: #f2f2f2;
-    }
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
     }
     .site {
       display: flex; 
@@ -47,7 +40,7 @@
     .site h3 {
       text-align: center;
       margin: 0; 
-	  margin-block-start: 0.1em;
+      margin-block-start: 0.1em;
       margin-block-end: 0.1em;
     }
     .site a {
@@ -62,14 +55,14 @@
       border-radius: 15px;
       cursor: pointer;
       transition: all 0.3s ease;
-	  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     .add-site h3 {
       text-align: center; 
       margin-top: 1px; 
-	  margin-block-start: 0.1em;
+      margin-block-start: 0.1em;
       margin-block-end: 0.1em;
-	  color: #393939dd;
+      color: #393939dd;
     }
     .add-site:hover {
       border-color: #999;
@@ -79,7 +72,7 @@
       height: 30px;
       margin-bottom: 10px;
     }
-	.remove-site {
+    .remove-site {
       position: absolute;
       top: 5px;
       right: 5px;
@@ -131,18 +124,22 @@
 
   <script>
     function addSite() {
-      var siteUrl = prompt("Enter site url:");
+      var siteUrl = prompt("Enter site URL:");
       if (siteUrl) {
         if (!siteUrl.startsWith("http://") && !siteUrl.startsWith("https://")) {
           siteUrl = "http://" + siteUrl;
         }
         var siteName = prompt("Enter site name:");
+        var siteIconUrl = prompt("Enter site icon URL (leave empty for placeholder):");
+        if (!siteIconUrl) {
+          siteIconUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAABAhJREFUeF7tm2+S4iAQxcl59A6zc4PED3obZ8fb6AfjDda9g54nu50KDoNAv27A0dJUWfNHQng/XjcEksY8+dE8uX7zAvBywA0ItG37yxjzRpdqmoZ+p8P+dFtwHIbhOP3j7+FwsL9Xa2WVEJgEU6Pfmqb5ndP6YRjG8w+Hw2dOPbFziwNo2/YjV3SssQSjNIhiAGoK94GUBJENgOzeNM1HJKZruPZSZwkQWQBu2eu1wkINoOu6Pz/R6xEQx77v3zV2EwP4SctzAvu+F+sRnTCJp56/20MKQQQg1/bz+dwsl0tDP1PHdrs19NEeEggwAK34mOjT6TTq2+12ZjabjZ8QmPV6bWxZARA4J0AANNneF04iSCwqZrVaGfrYQwoCHSJZAJq4dxtPgqnxmiPknsViAVc1DMM7dz/BAui6boCvaIzZbDajlXOE0/V8B7htkEDg8kESgLT3rfjcJGbrKZEoORckAUh6v5T4VM/7QNC8kHJBFICk991G5/Q+hQ6BlBxIOKRcEAWA9n6o0RoIGvEWFAIh5oIgAEnvh+KVS4A5YkPuQICLAKCTnli8cgCQJCcJAyrLuSA2Lwg6ALX/fr+PtjPVoNR5UuG2vNYFagCcjW8NgHMdgQqFwRUANP6R4SoGoYYDtGFwBQCNf6kId8xG4GlCgQuDUB5QAeDsH2u820ApQASIJgxCANi5vxYAiSAI5/NZPOG5KwC1LIyI5Mpww6GfCFUOeAHwFiu4XkG/t4smVN4unEhzxUM6gFstQiE8RBLUzOXRkCsFgN3wyBkFNADsOZwTAABXi6WhmSC0u8s1Bo17OzRKlsFj1+YmQv93sngA1CDkZgi1JQIC6Llv1cSuza0QhRZGqt0MIcLdMkDvXYqHQhCBCN0MoQ6gciXDQBIKylWo4GZJbEUIygMlw0ByX+8DQHo/FP90zew1wdIuoEZxsewDQMJHtCQmCYPSQ6J1QmpGp9h5iu4VFl8WlyY/5NbZLyPdfVIti0tcQGVr5IOQC1zHcaEygUvuFBfdGyy92usDUIg3WVtjUheUdoILwDqMu3HywoV9ToB1gAZCicRohza3LnC4uzDgej85DLok0ZXiWLLKTYzCXh8vh4iHAVBBzVMiVrg2QWqET+LhR2qhELBCkJskrrcJRux5IPe5IfRRmsD12Lh3zxEB0OQDDkjh70XiRSHgNhTdPCksjqtOLF4NIDcncEqk36NPhIXqFYeANzpAd41SQZLyOeKzHHAHIUGv13xyj8FxMLMcEJgr3OK9gSLCbduLAbAVTvMFeiEq9FIU1yGp74sKrwYgkCNyYNi3yKq9QVbcAbEuJGd8m4B8vT43/tt5XY7+rCbYb9/NAOR4v+a5LwA16T5C3U/vgH8DCOVfmIR03gAAAABJRU5ErkJggg==";
+        }
         if (siteName) {
           var siteElement = document.createElement("div");
           siteElement.classList.add("site");
           siteElement.innerHTML = `
             <a href="${siteUrl}">
-              <img src="${getFaviconUrl(siteUrl)}" alt="${siteName}"><br>
+              <img src="${siteIconUrl}" alt="${siteName}"><br>
               <h3>${siteName}</h3>
               <span class="remove-site" onclick="removeSite(event, this)">x</span>
             </a>
@@ -150,7 +147,7 @@
           document.querySelector(".container").insertBefore(siteElement, document.querySelector(".add-site"));
           
           var sites = JSON.parse(localStorage.getItem("customSites")) || [];
-          sites.push({name: siteName, url: siteUrl});
+          sites.push({name: siteName, url: siteUrl, iconUrl: siteIconUrl});
           localStorage.setItem("customSites", JSON.stringify(sites));
         }
       }
@@ -166,10 +163,6 @@
       });
       localStorage.setItem("customSites", JSON.stringify(sites));
       siteElement.remove();
-    }
-
-    function getFaviconUrl(url) {
-      return "https://www.google.com/s2/favicons?sz=64&domain=" + url;
     }
 
     function exportCustomSites() {
@@ -200,7 +193,7 @@
         siteElement.classList.add("site");
         siteElement.innerHTML = `
           <a href="${site.url}" target="_blank">
-            <img src="${getFaviconUrl(site.url)}" alt="${site.name}"><br>
+            <img src="${site.iconUrl}" alt="${site.name}"><br>
             <h3>${site.name}</h3>
             <span class="remove-site" onclick="removeSite(event, this)">x</span>
           </a>
